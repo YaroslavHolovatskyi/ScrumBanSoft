@@ -17,7 +17,7 @@ export class Chat extends Component {
     }
 
     componentDidMount = () => {
-        const nick = window.prompt('Your name:', 'John');
+        const nick = this.props.user.firstName;
        
 
         let hubConnection = new HubConnectionBuilder()
@@ -38,66 +38,34 @@ export class Chat extends Component {
                 const text = nick + ":" + receivedMessage;
                 const messages = this.state.messages.concat([text]);
                 this.setState({ messages });
-
             });
-        });
-       
-        
+        });            
     };
 
             sendMessage = () => {
-
                 this.state.hubConnection
-
                     .invoke('SendMessage', this.state.nick, this.state.message)
-
                     .catch(err => console.error(err));
-
                 //event.preventDefault();
-
             };
 
-
-
-
     render() {
-
         return (
-
             <div>
-
                 <br />
-
                 <input
-
                     type="text"
-
                     value={this.state.message}
-
                     onChange={e => this.setState({ message: e.target.value })}
-
                 />
-
-
-
                 <button onClick={this.sendMessage}>Send</button>
-
-
-
                 <div>
-
                     {this.state.messages.map((message, index) => (
-
                         <span style={{ display: 'block' }} key={index}> {message} </span>
-
                     ))}
-
                 </div>
-
             </div>
-
         );
-
     }
 }
 export default Chat;

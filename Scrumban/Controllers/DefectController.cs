@@ -8,7 +8,6 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace Scrumban.Controllers
 {
-    [Route("api/[controller]")]
     public class DefectController : Controller
     {
         IDefectService _defectService;
